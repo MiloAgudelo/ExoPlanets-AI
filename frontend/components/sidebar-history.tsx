@@ -3,8 +3,14 @@
 import { isToday, isYesterday, subMonths, subWeeks } from "date-fns";
 import { motion } from "framer-motion";
 import { useParams, useRouter } from "next/navigation";
-import type { User } from "next-auth";
 import { useState } from "react";
+
+type User = {
+  id: string;
+  email: string;
+  name?: string | null;
+  image?: string | null;
+};
 import { toast } from "sonner";
 import useSWRInfinite from "swr/infinite";
 import {

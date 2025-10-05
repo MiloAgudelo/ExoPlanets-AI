@@ -3,7 +3,7 @@ import Script from "next/script";
 import { AppSidebar } from "@/components/app-sidebar";
 import { DataStreamProvider } from "@/components/data-stream-provider";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { auth } from "../(auth)/auth";
+import { currentUser } from "@clerk/nextjs/server";
 
 export const experimental_ppr = true;
 
@@ -12,8 +12,18 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const [session, cookieStore] = await Promise.all([auth(), cookies()]);
+  const [user, cookieStore] = await Promise.all([currentUser(), cookies()]);
   const isCollapsed = cookieStore.get("sidebar_state")?.value !== "true";
+
+  // Transform Clerk user to match expected format
+  const userForSidebar = user ? {
+    id: user.id,
+    email: user.emailAddresses[0]?.emailAddress || "",
+    name: user.firstName && user.lastName 
+      ? `${user.firstName} ${user.lastName}` 
+      : user.firstName || user.lastName || user.username || "User",
+    image: user.imageUrl,
+  } : undefined;
 
   return (
     <>
@@ -23,7 +33,7 @@ export default async function Layout({
       />
       <DataStreamProvider>
         <SidebarProvider defaultOpen={!isCollapsed}>
-          <AppSidebar user={session?.user} />
+          <AppSidebar user={userForSidebar} />
           <SidebarInset>{children}</SidebarInset>
         </SidebarProvider>
       </DataStreamProvider>

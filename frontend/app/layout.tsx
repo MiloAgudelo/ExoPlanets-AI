@@ -3,9 +3,9 @@ import { Inter, Space_Grotesk, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { StarfieldBackground } from "@/components/space/StarfieldBackground";
+import { ClerkProvider } from "@clerk/nextjs";
 
 import "./globals.css";
-import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://chat.vercel.ai"),
@@ -54,34 +54,44 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
-      lang="en"
-      suppressHydrationWarning
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: "#8B5CF6",
+          colorBackground: "#000000",
+          colorText: "#FFFFFF",
+        },
+      }}
     >
-      <head>
-        <script
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: "Required"
-          dangerouslySetInnerHTML={{
-            __html: THEME_COLOR_SCRIPT,
-          }}
-        />
-      </head>
-      <body className="bg-black text-white antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          disableTransitionOnChange
-          enableSystem={false}
-          forcedTheme="dark"
-        >
-          <StarfieldBackground />
-          <div className="relative z-10">
-            <Toaster position="top-center" />
-            <SessionProvider>{children}</SessionProvider>
-          </div>
-        </ThemeProvider>
-      </body>
-    </html>
+      <html
+        className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
+        lang="en"
+        suppressHydrationWarning
+      >
+        <head>
+          <script
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: "Required"
+            dangerouslySetInnerHTML={{
+              __html: THEME_COLOR_SCRIPT,
+            }}
+          />
+        </head>
+        <body className="bg-black text-white antialiased">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            disableTransitionOnChange
+            enableSystem={false}
+            forcedTheme="dark"
+          >
+            <StarfieldBackground />
+            <div className="relative z-10">
+              <Toaster position="top-center" />
+              {children}
+            </div>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

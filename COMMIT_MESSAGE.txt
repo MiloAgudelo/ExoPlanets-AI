@@ -1,0 +1,81 @@
+feat: migrar autenticación de NextAuth a Clerk
+
+Reemplazar NextAuth.js con Clerk para autenticación moderna y lista para
+producción sin configuración y mejor experiencia de desarrollo.
+
+### 🎯 Cambios Realizados
+
+**Sistema de Autenticación:**
+- Migrado de NextAuth v5 a @clerk/nextjs (última versión)
+- Configurado ClerkProvider con tema oscuro acorde al diseño de la app
+- Implementado clerkMiddleware con protección de rutas
+- Añadidas páginas personalizadas de sign-in y sign-up con componentes Clerk
+
+**Middleware y Protección de Rutas:**
+- Reemplazado middleware de next-auth con clerkMiddleware
+- Protegidas rutas de chat manteniendo rutas públicas abiertas
+- Rutas públicas: /, /dashboard, /compare, /demo
+- Rutas protegidas: /chat, /chat/:id, y todas las rutas API
+
+**Actualización de Componentes:**
+- Actualizado sidebar-user-nav para usar hooks useUser y useClerk de Clerk
+- Actualizado app-sidebar con nuevo tipo User de Clerk
+- Actualizado (chat)/layout para usar currentUser() del servidor de Clerk
+- Eliminado SessionProvider en favor de ClerkProvider
+
+**Archivos Legacy Eliminados:**
+- app/(auth)/auth.ts
+- app/(auth)/auth.config.ts
+- app/(auth)/actions.ts
+- app/(auth)/login/page.tsx
+- app/(auth)/register/page.tsx
+- app/(auth)/api/auth/[...nextauth]/route.ts
+- app/(auth)/api/auth/guest/route.ts
+- components/auth-form.tsx
+- components/sign-out-form.tsx
+- components/submit-button.tsx
+- PUBLIC_ACCESS.md
+
+**Archivos Nuevos:**
+- app/sign-in/[[...sign-in]]/page.tsx - Página de sign-in con Clerk
+- app/sign-up/[[...sign-up]]/page.tsx - Página de sign-up con Clerk
+- CLERK_SETUP.md - Documentación completa de configuración
+- .cursorignore - Configurado para ignorar archivos env excepto ejemplos
+
+**Configuración:**
+- Actualizado .env.example con todas las variables requeridas de Clerk
+- Añadidas configuraciones de redirección FALLBACK y FORCE
+- Documentada la diferencia entre estrategias de redirección
+- Añadidas instrucciones para obtener API keys de Clerk
+
+### 📚 Documentación
+
+Ver CLERK_SETUP.md para:
+- Instrucciones completas de configuración
+- Explicación de variables de entorno
+- Estrategias de redirección FALLBACK vs FORCE
+- Guía de troubleshooting
+- Configuración actual de rutas
+
+### 🔗 Referencias
+
+- Clerk Docs: https://clerk.com/docs/quickstarts/nextjs
+- URLs de Redirección: https://clerk.com/docs/guides/development/customize-redirect-urls
+
+### ⚠️ Breaking Changes
+
+**Acciones Requeridas:**
+1. Instalar dependencias: `npm install` en frontend/
+2. Crear frontend/.env.local con claves de Clerk (ver .env.example)
+3. Obtener API keys de https://dashboard.clerk.com
+4. Configurar URLs de redirección según documentación
+
+**Notas de Migración:**
+- Gestión de sesiones de NextAuth completamente eliminada
+- Autenticación de usuarios ahora manejada por Clerk
+- No hay funcionalidad de usuario invitado (puede re-implementarse si es necesario)
+- URLs de sign-in/sign-up cambiadas a /sign-in y /sign-up
+
+---
+
+Co-authored-by: Clerk Documentation <https://clerk.com/docs>
