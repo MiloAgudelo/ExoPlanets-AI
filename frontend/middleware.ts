@@ -17,6 +17,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Allow public access to exoplanet pages (no authentication required)
+  const publicPaths = ["/", "/dashboard", "/compare", "/demo"];
+  if (publicPaths.some(path => pathname === path || pathname.startsWith(path + "/"))) {
+    return NextResponse.next();
+  }
+
   const token = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET,
@@ -42,8 +48,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/",
-    "/chat/:id",
+    "/chat/:id*",
     "/api/:path*",
     "/login",
     "/register",
@@ -53,7 +58,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     * - dashboard, compare, demo (public exoplanet pages)
      */
-    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|dashboard|compare|demo).*)",
   ],
 };
