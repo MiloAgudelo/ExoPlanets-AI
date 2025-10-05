@@ -27,10 +27,10 @@ export default function HomePage() {
               Start Analyzing
             </Link>
             <Link
-              href="/demo"
+              href="/chat"
               className="px-8 py-4 glass-card glow-border font-medium transition-colors"
             >
-              View Demo
+              AI Assistant
             </Link>
           </div>
 

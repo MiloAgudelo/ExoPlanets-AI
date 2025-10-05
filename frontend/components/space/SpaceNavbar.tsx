@@ -42,13 +42,13 @@ export function SpaceNavbar() {
 
           <div className="flex items-center gap-4">
             <Link
-              href="/login"
+              href="/sign-in"
               className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors"
             >
               Sign In
             </Link>
             <Link
-              href="/signup"
+              href="/sign-up"
               className="px-4 py-2 text-sm font-medium bg-primary rounded-lg hover:bg-primary/90 transition-colors"
             >
               Get Started
