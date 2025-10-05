@@ -44,7 +44,7 @@
 }
 
 @theme {
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-space-grotesk);
   --font-mono: var(--font-geist-mono);
   --breakpoint-toast-mobile: 600px;
   --radius-lg: var(--radius);

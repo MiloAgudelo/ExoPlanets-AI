@@ -3,6 +3,8 @@ import Script from "next/script";
 import { AppSidebar } from "@/components/app-sidebar";
 import { DataStreamProvider } from "@/components/data-stream-provider";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { SpaceNavbar } from "@/components/space/SpaceNavbar";
+import { SpaceFooter } from "@/components/space/SpaceFooter";
 import { currentUser } from "@clerk/nextjs/server";
 
 export const experimental_ppr = true;
@@ -21,12 +23,13 @@ export default async function Layout({
     email: user.emailAddresses[0]?.emailAddress || "",
     name: user.firstName && user.lastName 
       ? `${user.firstName} ${user.lastName}` 
-      : user.firstName || user.lastName || user.username || "User",
+      : user.firstName || user.lastName || user.username || "Usuario",
     image: user.imageUrl,
   } : undefined;
 
   return (
     <>
+      <SpaceNavbar />
       <Script
         src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"
         strategy="beforeInteractive"
@@ -34,9 +37,10 @@ export default async function Layout({
       <DataStreamProvider>
         <SidebarProvider defaultOpen={!isCollapsed}>
           <AppSidebar user={userForSidebar} />
-          <SidebarInset>{children}</SidebarInset>
+          <SidebarInset className="pt-20 pb-16">{children}</SidebarInset>
         </SidebarProvider>
       </DataStreamProvider>
+      <SpaceFooter />
     </>
   );
 }

@@ -4,17 +4,16 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/dashboard', label: 'Dashboard' },
-  { href: '/compare', label: 'Compare Models' },
-  { href: '/chat', label: 'AI Assistant' },
+  { href: '/', label: 'Inicio' },
+  { href: '/compare', label: 'Comparar Modelos' },
+  { href: '/chat', label: 'Asistente IA' },
 ];
 
 export function SpaceNavbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-white/10">
+    <nav className="fixed top-4 left-4 right-4 z-50 glass-card border border-white/10 rounded-2xl">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
@@ -22,7 +21,7 @@ export function SpaceNavbar() {
               <span className="text-2xl font-bold">E</span>
             </div>
             <span className="font-space-grotesk text-xl font-bold group-hover:text-primary transition-colors">
-              Exoplanet Detector
+              ExoPlanet - AI
             </span>
           </Link>
 
@@ -45,13 +44,13 @@ export function SpaceNavbar() {
               href="/sign-in"
               className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors"
             >
-              Sign In
+              Iniciar Sesión
             </Link>
             <Link
               href="/sign-up"
               className="px-4 py-2 text-sm font-medium bg-primary rounded-lg hover:bg-primary/90 transition-colors"
             >
-              Get Started
+              Comenzar
             </Link>
           </div>
         </div>

@@ -9,8 +9,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://chat.vercel.ai"),
-  title: "Exoplanet Detector - AI-Powered Discovery",
-  description: "Advanced machine learning for exoplanet detection across Kepler, TESS, and K2 missions.",
+  title: "ExoPlanet - AI | Descubrimiento de Exoplanetas con IA",
+  description: "Aprendizaje automático avanzado para la detección de exoplanetas en las misiones Kepler, TESS y K2.",
 };
 
 export const viewport = {
@@ -65,7 +65,7 @@ export default function RootLayout({
     >
       <html
         className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
-        lang="en"
+        lang="es"
         suppressHydrationWarning
       >
         <head>
