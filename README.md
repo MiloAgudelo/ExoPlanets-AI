@@ -5,9 +5,41 @@ A full-stack web application for detecting and classifying exoplanets using mach
 ## Quick Start
 
 ### Backend
+
+**Option 1: Using start scripts (easiest)**
 ```bash
 cd backend
+
+# Windows PowerShell:
+.\start.ps1
+
+# Windows CMD:
+start.bat
+
+# Linux/Mac:
+chmod +x start.sh
+./start.sh
+```
+
+**Option 2: Manual setup**
+```bash
+cd backend
+
+# Create virtual environment (first time only)
+python -m venv venv
+
+# Activate virtual environment
+# Windows PowerShell:
+.\venv\Scripts\Activate.ps1
+# Windows CMD:
+venv\Scripts\activate.bat
+# Linux/Mac:
+source venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Run server
 uvicorn api.index:app --reload --port 8000
 ```
 

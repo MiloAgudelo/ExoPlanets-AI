@@ -18,6 +18,17 @@
 # Navigate to backend directory
 cd backend
 
+# Create virtual environment (first time only)
+python -m venv venv
+
+# Activate virtual environment
+# Windows PowerShell:
+.\venv\Scripts\Activate.ps1
+# Windows CMD:
+venv\Scripts\activate.bat
+# Linux/Mac:
+source venv/bin/activate
+
 # Install Python dependencies
 pip install -r requirements.txt
 
@@ -164,6 +175,21 @@ For production, configure:
 **Solution:**
 ```bash
 npm install --legacy-peer-deps
+```
+
+### Issue: uvicorn not found on Windows
+**Solution:** Use virtual environment:
+```bash
+cd backend
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+uvicorn api.index:app --reload --port 8000
+```
+
+Or run directly:
+```bash
+.\venv\Scripts\uvicorn.exe api.index:app --reload --port 8000
 ```
 
 ### Issue: Backend can't find models
