@@ -10,19 +10,59 @@ FastAPI backend for exoplanet detection using ML models.
 - Prediction endpoints for Kepler, TESS, and K2 missions
 - CORS enabled for frontend integration
 
+## Quick Start
+
+### Option 1: Use Start Scripts (Recommended)
+
+```bash
+# Windows PowerShell:
+.\start.ps1
+
+# Windows CMD:
+start.bat
+
+# Linux/Mac:
+chmod +x start.sh
+./start.sh
+```
+
+The scripts will automatically:
+- Create virtual environment if needed
+- Install dependencies if needed
+- Activate venv
+- Start the server
+
 ## Setup
 
-### Install Dependencies
+### Option 2: Manual Setup
 
 ```bash
 cd backend
+
+# Create virtual environment (first time only)
+python -m venv venv
+
+# Activate virtual environment
+# Windows PowerShell:
+.\venv\Scripts\Activate.ps1
+# Windows CMD:
+venv\Scripts\activate.bat
+# Linux/Mac:
+source venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
 ### Run Locally
 
 ```bash
+# Make sure venv is activated (you should see (venv) in your prompt)
 uvicorn api.index:app --reload --port 8000
+
+# Alternative: run directly from venv without activation
+.\venv\Scripts\uvicorn.exe api.index:app --reload --port 8000  # Windows
+./venv/bin/uvicorn api.index:app --reload --port 8000  # Linux/Mac
 ```
 
 ### Access API
