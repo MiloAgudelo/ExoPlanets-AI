@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { auth } from "@/app/(auth)/auth";
-import { getChatsByUserId } from "@/lib/db/queries";
+import { getChatsByUserId, upsertUser } from "@/lib/db/queries";
 import { ChatSDKError } from "@/lib/errors";
 
 export async function GET(request: NextRequest) {
@@ -22,6 +22,9 @@ export async function GET(request: NextRequest) {
   if (!session?.user) {
     return new ChatSDKError("unauthorized:chat").toResponse();
   }
+
+  // Ensure user exists in database (upsert)
+  await upsertUser(session.user.id, session.user.email);
 
   const chats = await getChatsByUserId({
     id: session.user.id,

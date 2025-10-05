@@ -36,6 +36,7 @@ import {
   saveChat,
   saveMessages,
   updateChatLastContextById,
+  upsertUser,
 } from "@/lib/db/queries";
 import { ChatSDKError } from "@/lib/errors";
 import type { ChatMessage } from "@/lib/types";
@@ -112,6 +113,9 @@ export async function POST(request: Request) {
     if (!session?.user) {
       return new ChatSDKError("unauthorized:chat").toResponse();
     }
+
+    // Ensure user exists in database (upsert)
+    await upsertUser(session.user.id, session.user.email);
 
     const userType: UserType = session.user.type;
 

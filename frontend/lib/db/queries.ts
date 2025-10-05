@@ -53,22 +53,60 @@ export async function getUser(email: string): Promise<User[]> {
   }
 }
 
-export async function createUser(email: string, password: string) {
-  const hashedPassword = generateHashedPassword(password);
+export async function createUser(id: string, email: string, password?: string) {
+  const hashedPassword = password ? generateHashedPassword(password) : null;
 
   try {
-    return await db.insert(user).values({ email, password: hashedPassword });
+    return await db.insert(user).values({ id, email, password: hashedPassword });
   } catch (_error) {
     throw new ChatSDKError("bad_request:database", "Failed to create user");
   }
 }
 
+export async function getUserById(id: string): Promise<User | null> {
+  try {
+    const [foundUser] = await db.select().from(user).where(eq(user.id, id));
+    return foundUser || null;
+  } catch (_error) {
+    throw new ChatSDKError(
+      "bad_request:database",
+      "Failed to get user by id"
+    );
+  }
+}
+
+export async function upsertUser(id: string, email: string): Promise<User> {
+  try {
+    // Check if user exists
+    const existingUser = await getUserById(id);
+    if (existingUser) {
+      return existingUser;
+    }
+
+    // Create new user if doesn't exist
+    await createUser(id, email);
+    const newUser = await getUserById(id);
+    
+    if (!newUser) {
+      throw new Error("Failed to create user");
+    }
+    
+    return newUser;
+  } catch (_error) {
+    throw new ChatSDKError(
+      "bad_request:database",
+      "Failed to upsert user"
+    );
+  }
+}
+
 export async function createGuestUser() {
-  const email = `guest-${Date.now()}`;
+  const id = `guest_${generateUUID()}`;
+  const email = `guest-${Date.now()}@exoplanets.local`;
   const password = generateHashedPassword(generateUUID());
 
   try {
-    return await db.insert(user).values({ email, password }).returning({
+    return await db.insert(user).values({ id, email, password }).returning({
       id: user.id,
       email: user.email,
     });
@@ -191,10 +229,12 @@ export async function getChatsByUserId({
       chats: hasMore ? filteredChats.slice(0, limit) : filteredChats,
       hasMore,
     };
-  } catch (_error) {
+  } catch (error) {
+    // Log the actual error for debugging
+    console.error("Error in getChatsByUserId:", error);
     throw new ChatSDKError(
       "bad_request:database",
-      "Failed to get chats by user id"
+      `Failed to get chats by user id: ${error instanceof Error ? error.message : String(error)}`
     );
   }
 }
@@ -516,10 +556,11 @@ export async function getMessageCountByUserId({
       .execute();
 
     return stats?.count ?? 0;
-  } catch (_error) {
+  } catch (error) {
+    console.error("Error in getMessageCountByUserId:", error);
     throw new ChatSDKError(
       "bad_request:database",
-      "Failed to get message count by user id"
+      `Failed to get message count by user id: ${error instanceof Error ? error.message : String(error)}`
     );
   }
 }
