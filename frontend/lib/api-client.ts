@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export interface PredictionResult {
   index: number;
@@ -43,14 +43,14 @@ export const apiClient = {
     file: File
   ): Promise<PredictionResponse> {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
     const response = await axios.post(
       `${API_URL}/api/predict/${mission}`,
       formData,
       {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       }
     );
@@ -68,4 +68,3 @@ export const apiClient = {
     return response.data.available_models;
   },
 };
-

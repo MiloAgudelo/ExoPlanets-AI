@@ -32,7 +32,7 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 
   // Protect all other routes
   await auth.protect();
-  
+
   return NextResponse.next();
 });
 

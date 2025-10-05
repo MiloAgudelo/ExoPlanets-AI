@@ -15,7 +15,6 @@ import {
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import type { ArtifactKind } from "@/components/artifact";
-import type { VisibilityType } from "@/components/visibility-selector";
 import { ChatSDKError } from "../errors";
 import type { AppUsage } from "../usage";
 import { generateUUID } from "../utils";
@@ -57,7 +56,9 @@ export async function createUser(id: string, email: string, password?: string) {
   const hashedPassword = password ? generateHashedPassword(password) : null;
 
   try {
-    return await db.insert(user).values({ id, email, password: hashedPassword });
+    return await db
+      .insert(user)
+      .values({ id, email, password: hashedPassword });
   } catch (_error) {
     throw new ChatSDKError("bad_request:database", "Failed to create user");
   }
@@ -68,10 +69,7 @@ export async function getUserById(id: string): Promise<User | null> {
     const [foundUser] = await db.select().from(user).where(eq(user.id, id));
     return foundUser || null;
   } catch (_error) {
-    throw new ChatSDKError(
-      "bad_request:database",
-      "Failed to get user by id"
-    );
+    throw new ChatSDKError("bad_request:database", "Failed to get user by id");
   }
 }
 
@@ -86,17 +84,14 @@ export async function upsertUser(id: string, email: string): Promise<User> {
     // Create new user if doesn't exist
     await createUser(id, email);
     const newUser = await getUserById(id);
-    
+
     if (!newUser) {
       throw new Error("Failed to create user");
     }
-    
+
     return newUser;
   } catch (_error) {
-    throw new ChatSDKError(
-      "bad_request:database",
-      "Failed to upsert user"
-    );
+    throw new ChatSDKError("bad_request:database", "Failed to upsert user");
   }
 }
 
@@ -122,12 +117,10 @@ export async function saveChat({
   id,
   userId,
   title,
-  visibility,
 }: {
   id: string;
   userId: string;
   title: string;
-  visibility: VisibilityType;
 }) {
   try {
     return await db.insert(chat).values({
@@ -135,7 +128,6 @@ export async function saveChat({
       createdAt: new Date(),
       userId,
       title,
-      visibility,
     });
   } catch (_error) {
     throw new ChatSDKError("bad_request:database", "Failed to save chat");

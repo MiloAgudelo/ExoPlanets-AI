@@ -1,5 +1,4 @@
 import { currentUser } from "@clerk/nextjs/server";
-import type { User } from "@clerk/nextjs/server";
 
 export type UserType = "guest" | "regular";
 
@@ -30,7 +29,10 @@ export async function auth(): Promise<Session> {
   const name =
     clerkUser.firstName && clerkUser.lastName
       ? `${clerkUser.firstName} ${clerkUser.lastName}`
-      : clerkUser.firstName || clerkUser.lastName || clerkUser.username || "User";
+      : clerkUser.firstName ||
+        clerkUser.lastName ||
+        clerkUser.username ||
+        "User";
 
   // Determine user type
   // Guests are identified by email starting with "guest-"

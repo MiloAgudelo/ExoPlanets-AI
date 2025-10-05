@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState, useCallback } from 'react';
-import { Upload, File as FileIcon, X } from 'lucide-react';
+import { File as FileIcon, Upload, X } from "lucide-react";
+import { useCallback, useState } from "react";
 
 interface FileUploaderProps {
   onFileSelect: (file: File) => void;
@@ -14,9 +14,9 @@ export function FileUploader({ onFileSelect }: FileUploaderProps) {
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (e.type === 'dragenter' || e.type === 'dragover') {
+    if (e.type === "dragenter" || e.type === "dragover") {
       setDragActive(true);
-    } else if (e.type === 'dragleave') {
+    } else if (e.type === "dragleave") {
       setDragActive(false);
     }
   }, []);
@@ -40,11 +40,11 @@ export function FileUploader({ onFileSelect }: FileUploaderProps) {
   }, []);
 
   const handleFile = (file: File) => {
-    if (file.type === 'text/csv' || file.name.endsWith('.csv')) {
+    if (file.type === "text/csv" || file.name.endsWith(".csv")) {
       setSelectedFile(file);
       onFileSelect(file);
     } else {
-      alert('Please upload a CSV file');
+      alert("Please upload a CSV file");
     }
   };
 
@@ -54,10 +54,10 @@ export function FileUploader({ onFileSelect }: FileUploaderProps) {
 
   return (
     <div
-      className={`relative glass-card border-2 border-dashed rounded-xl p-12 text-center transition-all ${
+      className={`glass-card relative rounded-xl border-2 border-dashed p-12 text-center transition-all ${
         dragActive
-          ? 'border-primary bg-primary/5'
-          : 'border-white/20 hover:border-white/40'
+          ? "border-primary bg-primary/5"
+          : "border-white/20 hover:border-white/40"
       }`}
       onDragEnter={handleDrag}
       onDragLeave={handleDrag}
@@ -65,47 +65,44 @@ export function FileUploader({ onFileSelect }: FileUploaderProps) {
       onDrop={handleDrop}
     >
       <input
-        type="file"
         accept=".csv"
+        className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
         onChange={handleChange}
-        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+        type="file"
       />
 
       {selectedFile ? (
         <div className="space-y-4">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10">
-            <FileIcon className="w-8 h-8 text-primary" />
+          <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+            <FileIcon className="h-8 w-8 text-primary" />
           </div>
           <div>
             <p className="font-semibold text-white">{selectedFile.name}</p>
-            <p className="text-sm text-white/60 mt-1">
+            <p className="mt-1 text-sm text-white/60">
               {(selectedFile.size / 1024).toFixed(2)} KB
             </p>
           </div>
           <button
+            className="glass-card inline-flex items-center gap-2 rounded-lg px-4 py-2 transition-colors hover:bg-white/10"
             onClick={clearFile}
-            className="inline-flex items-center gap-2 px-4 py-2 glass-card rounded-lg hover:bg-white/10 transition-colors"
           >
-            <X className="w-4 h-4" />
+            <X className="h-4 w-4" />
             Remove
           </button>
         </div>
       ) : (
         <div className="space-y-4">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/5">
-            <Upload className="w-8 h-8 text-white/40" />
+          <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/5">
+            <Upload className="h-8 w-8 text-white/40" />
           </div>
           <div>
-            <p className="text-lg font-semibold text-white">
+            <p className="font-semibold text-lg text-white">
               Drop your CSV file here
             </p>
-            <p className="text-sm text-white/60 mt-2">
-              or click to browse
-            </p>
+            <p className="mt-2 text-sm text-white/60">or click to browse</p>
           </div>
         </div>
       )}
     </div>
   );
 }
-

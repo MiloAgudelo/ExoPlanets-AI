@@ -7,15 +7,12 @@ import { SidebarToggle } from "@/components/sidebar-toggle";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "./icons";
 import { useSidebar } from "./ui/sidebar";
-import { VisibilitySelector, type VisibilityType } from "./visibility-selector";
 
 function PureChatHeader({
   chatId,
-  selectedVisibilityType,
   isReadonly,
 }: {
   chatId: string;
-  selectedVisibilityType: VisibilityType;
   isReadonly: boolean;
 }) {
   const router = useRouter();
@@ -24,7 +21,7 @@ function PureChatHeader({
   const { width: windowWidth } = useWindowSize();
 
   return (
-    <header className="sticky top-20 z-40 flex items-center gap-2 bg-background px-2 py-1.5 md:px-2 border-b">
+    <header className="sticky top-20 z-40 flex items-center gap-2 border-b bg-background px-2 py-1.5 md:px-2">
       <SidebarToggle />
 
       {(!open || windowWidth < 768) && (
@@ -40,14 +37,6 @@ function PureChatHeader({
           <span className="md:sr-only">Nuevo Chat</span>
         </Button>
       )}
-
-      {!isReadonly && (
-        <VisibilitySelector
-          chatId={chatId}
-          className="order-1 ml-auto md:order-2"
-          selectedVisibilityType={selectedVisibilityType}
-        />
-      )}
     </header>
   );
 }
@@ -55,7 +44,6 @@ function PureChatHeader({
 export const ChatHeader = memo(PureChatHeader, (prevProps, nextProps) => {
   return (
     prevProps.chatId === nextProps.chatId &&
-    prevProps.selectedVisibilityType === nextProps.selectedVisibilityType &&
     prevProps.isReadonly === nextProps.isReadonly
   );
 });

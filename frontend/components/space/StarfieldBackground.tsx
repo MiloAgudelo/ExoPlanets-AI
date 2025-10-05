@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface Star {
   x: number;
@@ -17,7 +17,7 @@ export function StarfieldBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     // Setup
@@ -40,9 +40,9 @@ export function StarfieldBackground() {
 
     // Animation
     let animationFrameId: number;
-    
+
     const animate = () => {
-      ctx.fillStyle = '#000000';
+      ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       stars.forEach((star) => {
@@ -72,10 +72,9 @@ export function StarfieldBackground() {
 
   return (
     <canvas
+      className="-z-10 fixed inset-0"
       ref={canvasRef}
-      className="fixed inset-0 -z-10"
-      style={{ background: '#000000' }}
+      style={{ background: "#000000" }}
     />
   );
 }
-

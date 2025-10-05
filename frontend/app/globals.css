@@ -115,12 +115,12 @@
   }
 
   .glow-border::before {
-    content: '';
+    content: "";
     @apply absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300;
-    background: linear-gradient(45deg, #0EA5E9, #8B5CF6);
+    background: linear-gradient(45deg, #0ea5e9, #8b5cf6);
     padding: 2px;
-    -webkit-mask: 
-      linear-gradient(#fff 0 0) content-box, 
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -131,7 +131,7 @@
   }
 
   .space-gradient {
-    background: linear-gradient(135deg, #0EA5E9 0%, #8B5CF6 50%, #06B6D4 100%);
+    background: linear-gradient(135deg, #000000 0%, #ff0000 50%, #000000 100%);
   }
 }
 

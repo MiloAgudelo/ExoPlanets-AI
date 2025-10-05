@@ -22,7 +22,8 @@ export const Greeting = () => {
         initial={{ opacity: 0, y: 10 }}
         transition={{ delay: 0.6 }}
       >
-        Puedo ayudarte a responder preguntas sobre exoplanetas, métodos de detección y análisis de datos astronómicos
+        Puedo ayudarte a responder preguntas sobre exoplanetas, métodos de
+        detección y análisis de datos astronómicos
       </motion.div>
     </div>
   );

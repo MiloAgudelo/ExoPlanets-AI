@@ -1,35 +1,37 @@
-import { SpaceNavbar } from '@/components/space/SpaceNavbar';
-import { SpaceFooter } from '@/components/space/SpaceFooter';
-import Link from 'next/link';
+import Link from "next/link";
+import { SpaceFooter } from "@/components/space/space-footer";
+import { SpaceNavbar } from "@/components/space/SpaceNavbar";
 
 export default function HomePage() {
   return (
     <>
       <SpaceNavbar />
-      <main className="min-h-screen flex items-center justify-center px-6 pb-16 pt-24">
-        <div className="max-w-4xl text-center space-y-8">
-          <h1 className="text-6xl md:text-7xl font-bold font-space-grotesk">
-            Descubre Exoplanetas con{' '}
-            <span className="bg-clip-text text-transparent space-gradient">
+      <main className="flex min-h-screen items-center justify-center px-6 pt-40 pb-16">
+        <div className="max-w-4xl space-y-8 text-center">
+          <h1 className="font-bold font-space-grotesk text-6xl md:text-7xl">
+            Descubre Exoplanetas con{" "}
+            <span className="space-gradient bg-clip-text text-transparent">
               Inteligencia Artificial
             </span>
           </h1>
-          
-          <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Modelos avanzados de aprendizaje automático para detectar y clasificar 
-            exoplanetas de las misiones Kepler, TESS y K2.
+
+          <p className="mx-auto max-w-2xl text-white/70 text-xl">
+            Modelos avanzados de aprendizaje automático para detectar y
+            clasificar exoplanetas de las misiones Kepler, TESS y K2.
           </p>
 
-          <div className="flex gap-4 justify-center pt-8">
-            <Link
-              href="/dashboard"
-              className="px-8 py-4 bg-primary rounded-lg font-medium hover:bg-primary/90 transition-colors"
+          <div className="flex justify-center gap-4 pt-8">
+            <a
+              className="rounded-lg bg-primary px-8 py-4 font-medium transition-colors hover:bg-primary/90"
+              href="https://nasaspaceappschallenge.streamlit.app/"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Comenzar Análisis
-            </Link>
+            </a>
             <Link
+              className="glass-card glow-border px-8 py-4 font-medium transition-colors"
               href="/chat"
-              className="px-8 py-4 glass-card glow-border font-medium transition-colors"
             >
               Asistente IA
             </Link>
@@ -37,16 +39,18 @@ export default function HomePage() {
 
           <div className="grid grid-cols-3 gap-8 pt-16">
             {[
-              { mission: 'Kepler', accuracy: '94%', planets: '2,800+' },
-              { mission: 'TESS', accuracy: '77%', planets: '400+' },
-              { mission: 'K2', accuracy: '97%', planets: '500+' },
+              { mission: "Kepler", accuracy: "94%", planets: "2,800+" },
+              { mission: "TESS", accuracy: "77%", planets: "400+" },
+              { mission: "K2", accuracy: "97%", planets: "500+" },
             ].map((stat) => (
-              <div key={stat.mission} className="glass-card p-6 glow-border">
-                <div className="text-3xl font-bold text-primary mb-2">
+              <div className="glass-card glow-border p-6" key={stat.mission}>
+                <div className="mb-2 font-bold text-3xl text-primary">
                   {stat.accuracy}
                 </div>
-                <div className="text-sm text-white/70">Misión {stat.mission}</div>
-                <div className="text-xs text-white/50 mt-1">
+                <div className="text-sm text-white/70">
+                  Misión {stat.mission}
+                </div>
+                <div className="mt-1 text-white/50 text-xs">
                   {stat.planets} descubiertos
                 </div>
               </div>
@@ -58,4 +62,3 @@ export default function HomePage() {
     </>
   );
 }
-

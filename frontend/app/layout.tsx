@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
-import { Inter, Space_Grotesk, Geist_Mono } from "next/font/google";
-import { Toaster } from "sonner";
-import { ThemeProvider } from "@/components/theme-provider";
-import { StarfieldBackground } from "@/components/space/StarfieldBackground";
 import { ClerkProvider } from "@clerk/nextjs";
+import type { Metadata } from "next";
+import { Geist_Mono, Inter, Space_Grotesk } from "next/font/google";
+import { Toaster } from "sonner";
+import { StarfieldBackground } from "@/components/space/StarfieldBackground";
+import { ThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://chat.vercel.ai"),
   title: "ExoPlanet - AI | Descubrimiento de Exoplanetas con IA",
-  description: "Aprendizaje automático avanzado para la detección de exoplanetas en las misiones Kepler, TESS y K2.",
+  description:
+    "Aprendizaje automático avanzado para la detección de exoplanetas en las misiones Kepler, TESS y K2.",
 };
 
 export const viewport = {

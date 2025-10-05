@@ -1,13 +1,13 @@
 import { SignUp } from "@clerk/nextjs";
+import { SpaceFooter } from "@/components/space/space-footer";
 import { SpaceNavbar } from "@/components/space/SpaceNavbar";
-import { SpaceFooter } from "@/components/space/SpaceFooter";
 
 export default function SignUpPage() {
   return (
     <>
       <SpaceNavbar />
       <div className="flex min-h-screen items-center justify-center pt-24 pb-16">
-        <SignUp 
+        <SignUp
           appearance={{
             elements: {
               rootBox: "mx-auto",
@@ -20,4 +20,3 @@ export default function SignUpPage() {
     </>
   );
 }
-

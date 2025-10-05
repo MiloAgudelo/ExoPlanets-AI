@@ -11,6 +11,7 @@ type User = {
   name?: string | null;
   image?: string | null;
 };
+
 import { toast } from "sonner";
 import useSWRInfinite from "swr/infinite";
 import {
@@ -173,9 +174,7 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
   if (isLoading) {
     return (
       <SidebarGroup>
-        <div className="px-2 py-1 text-sidebar-foreground/50 text-xs">
-          Hoy
-        </div>
+        <div className="px-2 py-1 text-sidebar-foreground/50 text-xs">Hoy</div>
         <SidebarGroupContent>
           <div className="flex flex-col">
             {[44, 32, 28, 64, 52].map((item) => (
@@ -358,8 +357,8 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
           <AlertDialogHeader>
             <AlertDialogTitle>¿Estás completamente seguro?</AlertDialogTitle>
             <AlertDialogDescription>
-              Esta acción no se puede deshacer. Esto eliminará permanentemente tu
-              chat y lo eliminará de nuestros servidores.
+              Esta acción no se puede deshacer. Esto eliminará permanentemente
+              tu chat y lo eliminará de nuestros servidores.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

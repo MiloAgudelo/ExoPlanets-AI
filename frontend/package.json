@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "tsx lib/db/migrate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "npx ultracite@latest check",
     "format": "npx ultracite@latest fix",
@@ -15,7 +15,8 @@
     "db:pull": "drizzle-kit pull",
     "db:check": "drizzle-kit check",
     "db:up": "drizzle-kit up",
-    "test": "export PLAYWRIGHT=True && pnpm exec playwright test"
+    "test": "set PLAYWRIGHT=True && npx playwright test",
+    "prepare": "husky"
   },
   "dependencies": {
     "@ai-sdk/gateway": "^1.0.15",
@@ -61,7 +62,7 @@
     "jspdf-autotable": "^5.0.2",
     "lucide-react": "^0.446.0",
     "nanoid": "^5.0.8",
-    "next": "15.3.0-canary.31",
+    "next": "15.2.3",
     "next-auth": "5.0.0-beta.25",
     "next-themes": "^0.3.0",
     "orderedmap": "^2.1.1",
@@ -109,11 +110,19 @@
     "@types/react-dom": "^18",
     "@types/react-syntax-highlighter": "^15.5.13",
     "drizzle-kit": "^0.25.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.3",
     "postcss": "^8",
     "tailwindcss": "^4.1.13",
     "tsx": "^4.19.1",
     "typescript": "^5.6.3",
     "ultracite": "5.3.9"
   },
-  "packageManager": "pnpm@9.12.3"
+  "packageManager": "npm@10.9.2",
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run format",
+      "npm run lint"
+    ]
+  }
 }
